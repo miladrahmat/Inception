@@ -16,9 +16,18 @@ RUN apk add --no-cache \
 	tar \
 	less
 
-RUN sed -i 's/127.0.0.1:9000/0.0.0.0:9000/' /etc/php83/php-fpm.d/www.conf \
-	&& sed -i 's/user = nobody/user = nginx/' /etc/php83/php-fpm.d/www.conf \
-	&& sed -i 's/group = nobody/group = nginx/' /etc/php83/php-fpm.d/www.conf
+COPY ./conf/wordpress.conf /etc/php83/php-fpm.d/www.conf
+ARG WEB_USER
+ARG WEB_GROUP
+RUN	echo "user = $WEB_USER" >> /etc/php83/php-fpm.d/www.conf
+RUN echo "group = WEB_GROUP" >> /etc/php83/php-fpm.d/www.conf
+
+COPY ./tools/wordpress-script.sh /bin/wordpress-script.sh
+RUN chmod +x /bin/wordpress-script.sh
+
+RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+RUN chmod +x wp-cli.phar
+RUN mv wp-cli.phar /bin/wp
 
 WORKDIR /var/www/html
 
