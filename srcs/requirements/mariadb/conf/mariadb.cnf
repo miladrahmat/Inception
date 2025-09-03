@@ -1,0 +1,8 @@
+[mysqld]
+datadir = /var/lib/mariadb
+basedir = /usr
+socket = /run/mariadb/mariadb.sock
+pid_file = /run/mariadb/mariadb.pid
+bind_address = 0.0.0.0
+port = 3306
+user = mariadb

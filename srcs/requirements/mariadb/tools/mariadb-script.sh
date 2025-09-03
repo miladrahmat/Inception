@@ -1,17 +1,18 @@
 #!/bin/sh
 
 # if [ ! -d "/var/lib/mysql" ]; then
-	mariadb-install-db --basedir=/usr --user=mysql --datadir=/var/lib/mysql
+	mariadb-install-db --user=mariadb --basedir=/usr --datadir=/var/lib/mariadb
 # fi
-echo "HERE"
-mysqld --user=mysql --bootstrap << EOF
+root_pw=$(cat /run/secrets/db_root_password.txt)
+user_pw=$(cat /run/secrets/db_password.txt)
+mysqld --user=mariadb --bootstrap << EOF
 	USE mysql;
 	FLUSH PRIVLIGES;
-	ALTER USER 'root'@'localhost' IDENTIFIED BY "DataBasePassword";
-	CREATE DATABASE MyData;
-	CREATE USER "user"@'%' IDENTIFIED BY "WordPressDBPassword";
-	GRANT ALL PRIVLEGES ON MyData.* TO '"user"'@'%';
+	ALTER USER 'root'@'localhost' IDENTIFIED BY '$root_pw';
+	CREATE DATABASE $DB_NAME;
+	CREATE USER '$DB_USER'@'%' IDENTIFIED BY '$user_pw';
+	GRANT ALL PRIVLEGES ON $DB_NAME.* TO '$DB_USER'@'%';
 	FLUSH PRIVLEGES;
 EOF
 
-exec mysqld --user=mysql
+exec mysqld --user=mariadb

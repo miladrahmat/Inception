@@ -5,8 +5,8 @@ RUN apk add --no-cache nginx openssl
 
 RUN mkdir -p /run/nginx
 RUN mkdir -p /etc/nginx/ssl
-COPY ./conf/nginx.conf /etc/my.cnf.d/nginx.conf
-RUN chmod 644 /etc/my.cnf.d/nginx.conf
+COPY ./conf/nginx.conf /etc/nginx/nginx.conf
+RUN chmod 644 /etc/nginx/nginx.conf
 
 EXPOSE 443
 
