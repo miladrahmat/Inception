@@ -1,4 +1,5 @@
 [mysqld]
+skip-networking=0
 datadir = /var/lib/mariadb
 basedir = /usr
 socket = /run/mariadb/mariadb.sock
