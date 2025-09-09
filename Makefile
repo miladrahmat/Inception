@@ -10,7 +10,7 @@ WP_DATA_DIR := $(DATA_DIR)/wordpress
 
 COMPOSE_FILE := ./srcs/docker-compose.yml
 
-all:
+all: db_data wp_data
 	@echo "$(YELLOW)	---BUILDING CONTAINERS---$(RESET)"
 	@docker compose -f $(COMPOSE_FILE) up && \
 		echo "$(GREEN)	---CONTAINERS ARE READY AND STARTED!---$(RESET)" || \
