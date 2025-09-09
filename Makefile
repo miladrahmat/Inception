@@ -10,7 +10,7 @@ COMPOSE_FILE := ./srcs/docker-compose.yml
 
 all: db_data wp_data
 	@echo "$(YELLOW)	---BUILDING CONTAINERS---$(RESET)"
-	@docker compose -f $(COMPOSE_FILE) up
+	@docker compose -f $(COMPOSE_FILE) up --build
 
 db_data:
 	@mkdir -p $(DB_DATA_DIR)
