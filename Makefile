@@ -12,7 +12,7 @@ COMPOSE_FILE := ./srcs/docker-compose.yml
 
 all:
 	@echo "$(YELLOW)	---BUILDING CONTAINERS---$(RESET)"
-	@docker compose -f $(COMPOSE_FILE) up -d && \
+	@docker compose -f $(COMPOSE_FILE) up && \
 		echo "$(GREEN)	---CONTAINERS ARE READY AND STARTED!---$(RESET)" || \
 		echo "$(RED)	---SOMETHING WENT WRONG.. ABORTING..---$(RESET)"
 
